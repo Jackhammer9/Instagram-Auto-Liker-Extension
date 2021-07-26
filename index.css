@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Otomanopee+One&family=Zen+Tokyo+Zoo&display=swap');
+
+body{
+    background-color: rgb(255, 157, 36);
+    background-size: cover;
+    background-repeat: none;
+    font-family: "Otomanopee One";
+    font-size: 20px;
+    color: whitesmoke;
+}
+
+input{
+    padding-top: 10px;
+    position: relative;
+    width: 200px;
+    height: 25px;
+    border: 3px solid lightcoral;
+    background-color: rgb(255, 186, 122);
+    border-radius: 5px;
+}
+
+button{
+    border: 1px solid gainsboro;
+    color: rgba(243, 243, 243, 0.952);
+    background-color: rgb(255, 165, 56);
+    font-weight: bold;
+    font-size: 16px;
+    padding: 10px;
+    width: 125px;
+    width: 280px;
+    font-stretch:wider;
+}
+
+button:disabled{
+    color: rgba(220, 220, 220, 0.623);
+    border-color: rgb(200, 200, 200);
+}
