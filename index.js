@@ -14,8 +14,38 @@ runBtn.addEventListener("click" , () => {
     isRunning = true
     stopBtn.disabled =false
     runBtn.disabled=true
-    timeBetweenLike = parseInt(timeBetweenLikeEl.value)
+    timeBetweenLikes = parseInt(timeBetweenLikeEl.value)
     postsToLike = parseInt(toLikeEL.value)
+
+    setInterval(() => {
+        if (postsToLike > 0){
+            if (isRunning && postsLiked < postsToLike){
+                updateLikedCounter()
+                chrome.tabs.query({"active" : true} , (tabs) => {
+                    let tab = tabs[0]
+                    chrome.scripting.executeScript({
+                        target: {tabId: tab.id},
+                        function: likePost
+                    })
+                })
+            }
+            else if (postsLiked >= postsToLike){
+                stopBtn.click()
+            }
+        }
+        else{
+            if (isRunning){
+                updateLikedCounter()
+                chrome.tabs.query({"active" : true} , (tabs) => {
+                    let tab = tabs[0]
+                    chrome.scripting.executeScript({
+                        target: {tabId: tab.id},
+                        function: likePost
+                    })
+                })
+            }
+        }
+    },timeBetweenLikes*1000)
 })
 
 stopBtn.addEventListener("click" , () => {
@@ -36,33 +66,3 @@ const updateLikedCounter = () =>{
     postsLiked += 1
     counterEl.textContent = "Posts Liked: "+JSON.stringify(postsLiked)
 }
-
-setInterval(() => {
-    if (postsToLike > 0){
-        if (isRunning && postsLiked < postsToLike){
-            updateLikedCounter()
-            chrome.tabs.query({"active" : true} , (tabs) => {
-                let tab = tabs[0]
-                chrome.scripting.executeScript({
-                    target: {tabId: tab.id},
-                    function: likePost
-                })
-            })
-        }
-        else if (postsLiked >= postsToLike){
-            stopBtn.click()
-        }
-    }
-    else{
-        if (isRunning){
-            updateLikedCounter()
-            chrome.tabs.query({"active" : true} , (tabs) => {
-                let tab = tabs[0]
-                chrome.scripting.executeScript({
-                    target: {tabId: tab.id},
-                    function: likePost
-                })
-            })
-        }
-    }
-},timeBetweenLikes*1000)
