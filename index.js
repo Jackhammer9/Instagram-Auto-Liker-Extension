@@ -10,6 +10,13 @@ const counterEl = document.getElementById("liked-el")
 
 stopBtn.disabled =true
 
+stopBtn.addEventListener("click" , () => {
+    isRunning = false
+    postsLiked = 0
+    stopBtn.disabled =true
+    runBtn.disabled=false
+})
+
 runBtn.addEventListener("click" , () => {
     isRunning = true
     stopBtn.disabled =false
@@ -48,18 +55,23 @@ runBtn.addEventListener("click" , () => {
     },timeBetweenLikes*1000)
 })
 
-stopBtn.addEventListener("click" , () => {
-    isRunning = false
-    postsLiked = 0
-    stopBtn.disabled =true
-    runBtn.disabled=false
-})
-
 const likePost = () => {
     const likeBtn = document.getElementsByClassName("wpO6b  ")
     const arrowBtn = document.querySelector(".coreSpriteRightPaginationArrow")
+    let svgList= document.getElementsByClassName("_8-yf5 ")
+    let array = []
+    for (let index = 0; index < svgList.length; index++) {
+        array.push(svgList[index].getAttribute("aria-label"))
+    }
+    if (!array.includes("Unlike")){
     likeBtn[1].click()
     arrowBtn.click()
+    return 1
+    }
+    else{
+        arrowBtn.click()
+        return 0
+    }
 }
 
 const updateLikedCounter = () =>{
